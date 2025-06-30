@@ -275,6 +275,11 @@ Agora sempre que seu Samsung A53 se afastar do MacBook por mais de 30 segundos, 
 **Para parar:** `./stop_service.sh`  
 **Para desinstalar:** `./uninstall.sh`
 
+## TODO
+
+- [ ] **Fix import e get dando erro de linter** - Resolver warnings do PyObjC import e None.get()
+- [ ] **Refatorar script Python com melhor arquitetura** - Separar em classes/módulos menores, melhorar organização
+
 ## Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para detalhes.
