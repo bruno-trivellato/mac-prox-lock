@@ -1,51 +1,51 @@
 # Mac Proximity Lock
 
-🔒 Bloqueia automaticamente seu MacBook quando seu smartphone Android se afasta dele.
+🔒 Automatically locks your MacBook when your Android smartphone moves away from it.
 
-## Como Funciona
+## How It Works
 
-O sistema monitora continuamente a conexão Bluetooth com seu dispositivo Android (Samsung A53). Quando o smartphone se afasta por mais de 30 segundos (configurável), o MacBook é automaticamente bloqueado.
+The system continuously monitors the Bluetooth connection with your Android device (Samsung A53). When the smartphone moves away for more than 30 seconds (configurable), the MacBook is automatically locked.
 
-## Requisitos
+## Requirements
 
-- macOS (testado no M4)
+- macOS (tested on M4)
 - Python 3.6+
-- Dispositivo Android pareado via Bluetooth
-- Permissões para executar comandos do sistema
+- Android device paired via Bluetooth
+- Permissions to execute system commands
 
-## Pré-requisitos: Conectar seu Android no Mac via Bluetooth
+## Prerequisites: Connect your Android to Mac via Bluetooth
 
-Antes de instalar o sistema, você precisa parear seu Samsung A53 com o MacBook:
+Before installing the system, you need to pair your Samsung A53 with the MacBook:
 
-### 1. No seu Android (Samsung A53):
-1. Vá em **Configurações** → **Conexões** → **Bluetooth**
-2. Certifique-se que o Bluetooth está **ligado**
-3. Toque em **Tornar dispositivo detectável** ou similar
-4. Mantenha a tela aberta nesta seção
+### 1. On your Android (Samsung A53):
+1. Go to **Settings** → **Connections** → **Bluetooth**
+2. Make sure Bluetooth is **on**
+3. Tap **Make device discoverable** or similar
+4. Keep the screen open on this section
 
-### 2. No seu MacBook:
-1. Clique no ícone da **Apple** → **Configurações do Sistema**
-2. Vá em **Bluetooth** na barra lateral
-3. Certifique-se que o Bluetooth está **ligado**
-4. Você deve ver seu "SM-A536B" (ou similar) na lista de dispositivos próximos
-5. Clique em **Conectar** ao lado do seu dispositivo
-6. Confirme o código que aparece nas duas telas (se solicitado)
+### 2. On your MacBook:
+1. Click the **Apple** icon → **System Settings**
+2. Go to **Bluetooth** in the sidebar
+3. Make sure Bluetooth is **on**
+4. You should see your "SM-A536B" (or similar) in the list of nearby devices
+5. Click **Connect** next to your device
+6. Confirm the code that appears on both screens (if requested)
 
-### 3. Verificar a conexão:
-1. No Mac: O dispositivo deve aparecer como "Conectado" na lista
-2. No Android: Deve mostrar "Conectado ao [Nome do seu Mac]"
+### 3. Verify the connection:
+1. On Mac: The device should appear as "Connected" in the list
+2. On Android: Should show "Connected to [Your Mac Name]"
 
-### 4. Teste rápido:
+### 4. Quick test:
 ```bash
-# Clone o projeto primeiro, depois execute:
+# Clone the project first, then run:
 python3 main.py --list-devices
 ```
 
-Você deve ver seu Samsung A53 listado como um dispositivo conectado.
+You should see your Samsung A53 listed as a connected device.
 
-## Instalação Rápida
+## Quick Installation
 
-1. **Clone e instale:**
+1. **Clone and install:**
 ```bash
 git clone <repository-url>
 cd mac-prox-lock
@@ -53,78 +53,78 @@ chmod +x install.sh
 ./install.sh
 ```
 
-2. **Configure seu dispositivo:**
+2. **Configure your device:**
 ```bash
 python3 main.py --setup
 ```
 
-3. **Teste o funcionamento:**
+3. **Test functionality:**
 ```bash
 python3 main.py
 ```
 
-## Uso
+## Usage
 
-### Configuração Inicial
+### Initial Setup
 
-Execute o setup interativo para configurar seu dispositivo Android:
+Run the interactive setup to configure your Android device:
 ```bash
 python3 main.py --setup
 ```
 
-O script irá:
-- Escanear dispositivos Bluetooth pareados
-- Permitir selecionar seu Samsung A53
-- Configurar timeout e intervalo de verificação
+The script will:
+- Scan paired Bluetooth devices
+- Allow you to select your Samsung A53
+- Configure timeout and scan interval
 
-### Executar Manualmente
+### Run Manually
 
-Para testar o sistema manualmente:
+To test the system manually:
 ```bash
 python3 main.py
 ```
 
-### Executar como Serviço em Background
+### Run as Background Service
 
-Para que o sistema funcione automaticamente sempre que você ligar o Mac:
+For the system to work automatically whenever you turn on your Mac:
 
-**Iniciar serviço:**
+**Start service:**
 ```bash
 launchctl load ~/Library/LaunchAgents/com.proximity.lock.plist
 ```
 
-**Parar serviço:**
+**Stop service:**
 ```bash
 launchctl unload ~/Library/LaunchAgents/com.proximity.lock.plist
 ```
 
-### Comandos Úteis
+### Useful Commands
 
-**Listar dispositivos Bluetooth:**
+**List Bluetooth devices:**
 ```bash
 python3 main.py --list-devices
 ```
 
-**Ver logs:**
+**View logs:**
 ```bash
 tail -f proximity_lock.log
 ```
 
-**Ajuda com Bluetooth:**
+**Bluetooth help:**
 ```bash
-# Verificar status do Bluetooth
+# Check Bluetooth status
 ./bluetooth_helper.sh status
 
-# Conectar manualmente ao dispositivo
+# Manually connect to device
 ./bluetooth_helper.sh connect 60:68:4E:E1:61:71
 
-# Resetar Bluetooth se tiver problemas
+# Reset Bluetooth if having issues
 ./bluetooth_helper.sh reset
 ```
 
-## Configuração
+## Configuration
 
-O arquivo `config.json` é criado automaticamente com as seguintes opções:
+The `config.json` file is automatically created with the following options:
 
 ```json
 {
@@ -137,149 +137,149 @@ O arquivo `config.json` é criado automaticamente com as seguintes opções:
 }
 ```
 
-### Parâmetros Configuráveis
+### Configurable Parameters
 
-- **device_name**: Nome do seu dispositivo Android
-- **device_mac**: Endereço MAC do dispositivo (mais confiável)
-- **timeout_seconds**: Segundos para bloquear após perder conexão (padrão: 30)
-- **scan_interval**: Intervalo entre verificações em segundos (padrão: 5)
-- **log_level**: Nível de log (DEBUG, INFO, WARNING, ERROR)
-- **lock_command**: Comando para bloquear a tela
-- **auto_reconnect**: Tentar reconectar automaticamente (padrão: true)
-- **max_reconnect_attempts**: Tentativas de reconexão antes de desistir (padrão: 3)
-- **reconnect_delay**: Delay entre tentativas em segundos (padrão: 2)
+- **device_name**: Name of your Android device
+- **device_mac**: MAC address of the device (more reliable)
+- **timeout_seconds**: Seconds to lock after losing connection (default: 30)
+- **scan_interval**: Interval between checks in seconds (default: 5)
+- **log_level**: Log level (DEBUG, INFO, WARNING, ERROR)
+- **lock_command**: Command to lock the screen
+- **auto_reconnect**: Try to reconnect automatically (default: true)
+- **max_reconnect_attempts**: Reconnection attempts before giving up (default: 3)
+- **reconnect_delay**: Delay between attempts in seconds (default: 2)
 
 ## Troubleshooting
 
-### Problemas de Bluetooth
+### Bluetooth Issues
 
-**Dispositivo não aparece na lista:**
-1. Certifique-se que o Bluetooth está ligado no Mac e no Android
-2. No Android: Vá em Bluetooth → **Avançado** → marque "Tornar detectável"
-3. No Mac: Tente remover e parear novamente o dispositivo
-4. Reinicie o Bluetooth nos dois dispositivos
-5. Execute `python3 main.py --list-devices` para verificar
+**Device doesn't appear in list:**
+1. Make sure Bluetooth is on in both Mac and Android
+2. On Android: Go to Bluetooth → **Advanced** → check "Make discoverable"
+3. On Mac: Try removing and pairing the device again
+4. Restart Bluetooth on both devices
+5. Run `python3 main.py --list-devices` to verify
 
-**Dispositivo pareado mas não conecta:**
-1. No Android: Vá em Bluetooth → encontre seu Mac → **Desparear**
-2. No Mac: Bluetooth → encontre seu Android → **Remover**  
-3. Refaça o processo de pareamento do zero
-4. Alguns Androids precisam que você aceite todas as permissões de compartilhamento
+**Device paired but doesn't connect:**
+1. On Android: Go to Bluetooth → find your Mac → **Unpair**
+2. On Mac: Bluetooth → find your Android → **Remove**  
+3. Redo the pairing process from scratch
+4. Some Androids require you to accept all sharing permissions
 
-**Conexão instável:**
-1. Mantenha os dispositivos próximos (< 2 metros) durante o teste
-2. Evite interferências (outros dispositivos Bluetooth, Wi-Fi 2.4GHz)
-3. No Android: Desative "Otimização de bateria" para Bluetooth
-4. Ajuste o `scan_interval` no config para valores maiores (ex: 10 segundos)
+**Unstable connection:**
+1. Keep devices close (< 2 meters) during testing
+2. Avoid interference (other Bluetooth devices, 2.4GHz Wi-Fi)
+3. On Android: Disable "Battery optimization" for Bluetooth
+4. Adjust `scan_interval` in config to larger values (e.g. 10 seconds)
 
-**Mac não reconecta automaticamente ao Android:**
-1. **Use o helper script**: `./bluetooth_helper.sh connect 60:68:4E:E1:61:71`
-2. **Reset do Bluetooth**: `./bluetooth_helper.sh reset` (pode precisar de sudo)
-3. **Configuração do Android**:
-   - Vá em Bluetooth → Configurações Avançadas
-   - Habilite "Conectar automaticamente a dispositivos conhecidos"
-   - Desative "Timeout de conexão"
-4. **No macOS**: 
-   - Preferências → Bluetooth → Opções Avançadas
-   - Habilite "Allow Bluetooth devices to wake this computer"
-5. **O sistema agora tem reconexão automática integrada** - ele tentará reconectar até 3 vezes
+**Mac doesn't automatically reconnect to Android:**
+1. **Use the helper script**: `./bluetooth_helper.sh connect 60:68:4E:E1:61:71`
+2. **Reset Bluetooth**: `./bluetooth_helper.sh reset` (may need sudo)
+3. **Android configuration**:
+   - Go to Bluetooth → Advanced Settings
+   - Enable "Automatically connect to known devices"
+   - Disable "Connection timeout"
+4. **On macOS**: 
+   - Preferences → Bluetooth → Advanced Options
+   - Enable "Allow Bluetooth devices to wake this computer"
+5. **The system now has integrated auto-reconnection** - it will try to reconnect up to 3 times
 
-### Dispositivo não encontrado pelo script
-1. Certifique-se que o dispositivo está **conectado** (não apenas pareado)
-2. Execute `python3 main.py --list-devices` para ver todos os dispositivos
-3. Verifique se o nome/MAC address no config.json está correto
-4. Tente usar o MAC address em vez do nome do dispositivo
+### Device not found by script
+1. Make sure the device is **connected** (not just paired)
+2. Run `python3 main.py --list-devices` to see all devices
+3. Verify that the name/MAC address in config.json is correct
+4. Try using the MAC address instead of the device name
 
-### Não está bloqueando
-1. Verifique os logs: `tail -f proximity_lock.log`
-2. Teste o comando de bloqueio manualmente: `pmset displaysleepnow`
-3. Ajuste o timeout se necessário
+### Not locking
+1. Check the logs: `tail -f proximity_lock.log`
+2. Test the lock command manually: `pmset displaysleepnow`
+3. Adjust the timeout if necessary
 
-### Serviço não inicia automaticamente
-1. Verifique se o arquivo plist foi criado: `ls ~/Library/LaunchAgents/com.proximity.lock.plist`
-2. Recarregue o serviço: `launchctl unload` seguido de `launchctl load`
+### Service doesn't start automatically
+1. Check if the plist file was created: `ls ~/Library/LaunchAgents/com.proximity.lock.plist`
+2. Reload the service: `launchctl unload` followed by `launchctl load`
 
-## Segurança
+## Security
 
-- O sistema usa apenas APIs públicas do macOS
-- Não coleta ou transmite dados pessoais
-- Funciona completamente offline
-- Logs são armazenados localmente
+- The system uses only public macOS APIs
+- Does not collect or transmit personal data
+- Works completely offline
+- Logs are stored locally
 
-## Desinstalação
+## Uninstallation
 
-Para remover completamente o sistema:
+To completely remove the system:
 
 ```bash
-# Parar o serviço
+# Stop the service
 launchctl unload ~/Library/LaunchAgents/com.proximity.lock.plist
 
-# Remover arquivos
+# Remove files
 rm ~/Library/LaunchAgents/com.proximity.lock.plist
 rm -rf ~/path/to/mac-prox-lock
 ```
 
-## Contribuição
+## Contributing
 
-Sinta-se à vontade para reportar bugs, sugerir melhorias ou contribuir com código!
+Feel free to report bugs, suggest improvements, or contribute code!
 
-## Resumo: Fluxo Completo do Zero
+## Summary: Complete Flow from Zero
 
-Aqui está o passo a passo completo para configurar tudo do zero:
+Here's the complete step-by-step to set everything up from scratch:
 
-### 1. Preparar o Bluetooth (PRIMEIRO PASSO!)
-- Android: Configurações → Bluetooth → Ligar → Tornar detectável
-- Mac: Configurações → Bluetooth → Ligar → Conectar ao seu Samsung A53
-- Confirmar que aparece "Conectado" nos dois dispositivos
+### 1. Prepare Bluetooth (FIRST STEP!)
+- Android: Settings → Bluetooth → Turn on → Make discoverable
+- Mac: Settings → Bluetooth → Turn on → Connect to your Samsung A53
+- Confirm it shows "Connected" on both devices
 
-### 2. Instalar o Sistema
+### 2. Install the System
 ```bash
-# Clonar o projeto
+# Clone the project
 git clone <repository-url>
 cd mac-prox-lock
 
-# Executar instalação
+# Run installation
 ./install.sh
 ```
 
-### 3. Configurar o Dispositivo
+### 3. Configure the Device
 ```bash
-# Executar setup interativo
+# Run interactive setup
 python3 main.py --setup
 
-# Escolher seu Samsung A53 da lista
-# Definir timeout (recomendado: 30 segundos)
+# Choose your Samsung A53 from the list
+# Set timeout (recommended: 30 seconds)
 ```
 
-### 4. Testar o Funcionamento
+### 4. Test Functionality
 ```bash
-# Testar manualmente
+# Test manually
 python3 main.py
 
-# Afastar o celular e ver se bloqueia após 30s
-# Ctrl+C para parar
+# Move phone away and see if it locks after 30s
+# Ctrl+C to stop
 ```
 
-### 5. Ativar o Serviço Automático
+### 5. Activate Automatic Service
 ```bash
-# Iniciar serviço em background
+# Start background service
 ./start_service.sh
 
-# Verificar logs
+# Check logs
 tail -f proximity_lock.log
 ```
 
-### 6. Pronto! 🎉
-Agora sempre que seu Samsung A53 se afastar do MacBook por mais de 30 segundos, a tela será bloqueada automaticamente.
+### 6. Done! 🎉
+Now whenever your Samsung A53 moves away from the MacBook for more than 30 seconds, the screen will be automatically locked.
 
-**Para parar:** `./stop_service.sh`  
-**Para desinstalar:** `./uninstall.sh`
+**To stop:** `./stop_service.sh`  
+**To uninstall:** `./uninstall.sh`
 
 ## TODO
 
-- [ ] **Fix import e get dando erro de linter** - Resolver warnings do PyObjC import e None.get()
-- [ ] **Refatorar script Python com melhor arquitetura** - Separar em classes/módulos menores, melhorar organização
+- [ ] **Fix import and get linter errors** - Resolve PyObjC import and None.get() warnings
+- [ ] **Refactor Python script with better architecture** - Separate into smaller classes/modules, improve organization
 
-## Licença
+## License
 
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para detalhes.
+This project is under the MIT license. See the LICENSE file for details.
