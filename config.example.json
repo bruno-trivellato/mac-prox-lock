@@ -1,0 +1,11 @@
+{
+  "device_name": "SM-A536B",
+  "device_mac": "AA:BB:CC:DD:EE:FF",
+  "timeout_seconds": 30,
+  "scan_interval": 5,
+  "log_level": "INFO",
+  "lock_command": "pmset displaysleepnow",
+  "auto_reconnect": true,
+  "max_reconnect_attempts": 3,
+  "reconnect_delay": 2
+} 
